@@ -2,12 +2,6 @@
 
 > **IMPORTANT**: All four Python files are **independent** and can be run separately. Each has its own purpose and execution flow.
 
-> **Viewing Flowcharts**: The Mermaid diagrams in this document require a compatible viewer:
-> - **GitHub**: Push this file to GitHub for automatic rendering
-> - **VS Code**: Install "Markdown Preview Mermaid Support" extension
-> - **Online**: Copy diagrams to [mermaid.live](https://mermaid.live/) for rendering
-> - **Alternatively**: Run `generate_flowcharts.py` to create PNG images
-
 ## Table of Contents
 - [Data Requirements](#data-requirements)
 - [File 1: Material Code-wise Forecasting Dashboard](#file-1-material-code-wise-forecasting-dashboard)
