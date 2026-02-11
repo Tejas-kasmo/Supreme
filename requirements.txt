@@ -1,0 +1,42 @@
+# Supreme Forecasting System - Python Dependencies
+# Compatible with Python 3.8+
+
+# Core Data Science Libraries
+pandas>=1.5.0
+numpy>=1.23.0
+
+# Time Series Forecasting
+prophet>=1.1.0
+
+# Visualization
+matplotlib>=3.6.0
+seaborn>=0.12.0
+plotly>=5.11.0
+
+# Streamlit (for Dashboard files)
+streamlit>=1.25.0
+
+# Snowflake Integration (for Snowflake-based dashboards)
+snowflake-snowpark-python>=1.6.0
+snowflake-connector-python>=3.0.0
+
+# Additional Snowflake requirements
+pyarrow>=10.0.0
+
+# Date/Time utilities
+python-dateutil>=2.8.0
+
+# Type hints and utilities
+typing-extensions>=4.5.0
+
+# Serialization (for model saving)
+pickle5>=0.0.12; python_version < '3.8'
+
+# Warnings suppression
+warnings-filter>=1.0.0
+
+# Optional for performance
+numba>=0.56.0
+
+# Testing and validation
+scikit-learn>=1.2.0  # For additional metrics if needed
