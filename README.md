@@ -79,28 +79,28 @@ Streamlit dashboard deployed on **Snowflake** for material code-level sales fore
 
 ```mermaid
 flowchart TD
-    Start([🚀 User Opens Dashboard]) --> Main[main Function]
+    Start([User Opens Dashboard]) --> Main[main Function]
     Main --> TabChoice{Choose Analysis Tab}
     
-    subgraph Tab1["🔮 Tab 1: Future Forecast"]
+    subgraph Tab1["Tab 1: Future Forecast"]
         direction TB
-        LoadMG1[load_material_groups]-->|"Display sorted groups"| SelectGroup1[👤 User Selects Group]
+        LoadMG1[load_material_groups]-->|"Display sorted groups"| SelectGroup1[User Selects Group]
         SelectGroup1 --> LoadMC1[load_material_codes_by_group]
-        LoadMC1 -->|"Display codes"| SelectCode1[👤 User Selects Code]
+        LoadMC1 -->|"Display codes"| SelectCode1[User Selects Code]
         SelectCode1 --> RunForecast[run_forecast]
         
-        subgraph DataPrep1["📊 Data Preparation"]
+        subgraph DataPrep1["Data Preparation"]
             LoadData1[load_filtered_data]-->AggDaily1[aggregate_daily_for_target]
             AggDaily1-->DetectDensity1[detect_density_patterns]
             DetectDensity1-->DetectAnom1[detect_anomalies_iqr]
         end
         
-        subgraph Model1["🤖 Model Training"]
+        subgraph Model1["Model Training"]
             BuildModel1[build_prophet_model]-->Train1[model.fit]
             Train1-->Predict1[model.predict 12 months]
         end
         
-        subgraph PostProc1["⚙️ Post-Processing Pipeline"]
+        subgraph PostProc1["Post-Processing Pipeline"]
             Scale1[scale_forecast_to_hist]-->DensityPat1[apply_density_pattern]
             DensityPat1-->Anomaly1[inject_anomalies]
             Anomaly1-->Cap1[enforce_historical_cap]
@@ -111,22 +111,22 @@ flowchart TD
         DataPrep1-->Model1
         Model1-->PostProc1
         PostProc1-->MonthlyChart1[create_monthly_chart_and_table]
-        MonthlyChart1-->Display1([📈 Display Results + CSV])
+        MonthlyChart1-->Display1([Display Results + CSV])
     end
     
-    subgraph Tab2["📊 Tab 2: Historical Validation"]
+    subgraph Tab2["Tab 2: Historical Validation"]
         direction TB
-        LoadMG2[load_material_groups]-->SelectGroup2[👤 User Selects Group]
+        LoadMG2[load_material_groups]-->SelectGroup2[User Selects Group]
         SelectGroup2-->LoadMC2[load_material_codes_by_group]
-        LoadMC2-->SelectCode2[👤 User Selects Code]
+        LoadMC2-->SelectCode2[User Selects Code]
         SelectCode2-->RunForecastFY[run_forecast_fy_based]
         
-        subgraph DataPrep2["📊 Data Split"]
+        subgraph DataPrep2["Data Split"]
             LoadData2[load_filtered_data]-->FilterTrain[Filter FY 2022-24]
             FilterTrain-->AggDaily2[aggregate_daily_for_target]
         end
         
-        subgraph Model2["🤖 Model Training & Prediction"]
+        subgraph Model2["Model Training & Prediction"]
             DetectDensity2[detect_density_patterns]-->BuildModel2[build_prophet_model]
             BuildModel2-->Train2[Train on FY 22-24]
             Train2-->Predict2[Predict FY 24-25]
@@ -136,7 +136,7 @@ flowchart TD
         DataPrep2-->Model2
         Model2-->PostProcess2[post_process_pipeline]
         PostProcess2-->Compare[create_comparison_chart_and_table]
-        Compare-->Display2([📊 Display vs Actual])
+        Compare-->Display2([Display vs Actual])
     end
     
     TabChoice -->|"Tab 1"| Tab1
@@ -199,12 +199,12 @@ Advanced Streamlit dashboard with **multi-dimensional filtering** and **AI-power
 
 ```mermaid
 flowchart TD
-    Start([🚀 Dashboard Launch]) --> TabSelect{Choose Mode}
+    Start([Dashboard Launch]) --> TabSelect{Choose Mode}
     
-    subgraph ForecastMode["🔮 Forecast Analysis Tab"]
+    subgraph ForecastMode["Forecast Analysis Tab"]
         direction TB
         
-        subgraph Filters["🎯 Multi-Dimensional Filters"]
+        subgraph Filters["Multi-Dimensional Filters"]
             direction LR
             GetMG[get_material_groups_ordered]-->GetMC[get_material_codes_by_group]
             GetMC-->GetStates[get_states_ordered]
@@ -212,9 +212,9 @@ flowchart TD
             GetPlants-->GetCust[get_customers_ordered]
         end
         
-        UserFilter[👤 User Applies Filters]-->LoadData[load_filtered_data]
+        UserFilter[User Applies Filters]-->LoadData[load_filtered_data]
         
-        subgraph Pipeline["⚡ Forecast Pipeline"]
+        subgraph Pipeline["Forecast Pipeline"]
             direction TB
             AggDaily[aggregate_daily_for_target]-->DetectPatterns[detect_density_patterns]
             DetectPatterns-->BuildModel[build_prophet_model]
@@ -227,34 +227,34 @@ flowchart TD
         DistributeDim-->CreateCharts[create_dimension_charts]
         CreateCharts-->RenderChart[render_chart_with_controls]
         
-        subgraph AIInsights["🤖 AI-Powered Insights"]
+        subgraph AIInsights["AI-Powered Insights"]
             direction TB
             PrepWeekly[prepare_weekly_data_summary]-->GetAI[get_enhanced_ai_insights]
-            GetAI-->CortexAPI[☁️ Snowflake Cortex API]
+            GetAI-->CortexAPI[Snowflake Cortex API]
             CortexAPI-->ParseTable[parse_table_to_html]
-            ParseTable-->ShowAI([📊 Display AI Insights])
+            ParseTable-->ShowAI([Display AI Insights])
         end
         
-        subgraph ModelReason["🔬 Technical Reasoning"]
+        subgraph ModelReason["Technical Reasoning"]
             direction TB
-            GetReason[get_enhanced_model_reasoning]-->CortexAPI2[☁️ Snowflake Cortex API]
+            GetReason[get_enhanced_model_reasoning]-->CortexAPI2[Snowflake Cortex API]
             CortexAPI2-->ParseReason[parse_table_to_html]
-            ParseReason-->ShowReason([📈 Display Reasoning])
+            ParseReason-->ShowReason([Display Reasoning])
         end
         
         RenderChart-->UserAction{User Action?}
         UserAction-->|"AI Insights"| AIInsights
         UserAction-->|"Model Reasoning"| ModelReason
-        UserAction-->|"View Chart"| Done1([✅ Analysis Complete])
+        UserAction-->|"View Chart"| Done1([Analysis Complete])
         
         Filters-->UserFilter
     end
     
-    subgraph ValidationMode["📊 Comparative Validation Tab"]
+    subgraph ValidationMode["Comparative Validation Tab"]
         direction TB
-        SelectMat[👤 Select Material Codes]-->RunVal[run_validation_forecast_pipeline]
+        SelectMat[Select Material Codes]-->RunVal[run_validation_forecast_pipeline]
         
-        subgraph Training["🎓 Model Training"]
+        subgraph Training["Model Training"]
             direction LR
             LoadHist[Load FY 2022-24]-->TrainModel[Train Prophet]
             TrainModel-->PredictFY[Predict FY 2024-25]
@@ -262,7 +262,7 @@ flowchart TD
         
         RunVal-->Training
         
-        subgraph Comparison["📊 Validation Analysis"]
+        subgraph Comparison["Validation Analysis"]
             direction TB
             LoadActual[Load Actual FY 2024-25]-->CalcMetrics[calculate_validation_metrics]
             CalcMetrics-->|"MAPE, RMSE, MAE, R²"| CreateChart[create_validation_comparison_chart]
@@ -271,7 +271,7 @@ flowchart TD
         Training-->Comparison
         Comparison-->RenderVal[render_validation_chart_with_reasoning]
         RenderVal-->GetValReason[get_validation_reasoning]
-        GetValReason-->ShowVal([📊 Predicted vs Actual])
+        GetValReason-->ShowVal([Predicted vs Actual])
     end
     
     TabSelect-->|"Forecast"| ForecastMode
@@ -339,33 +339,33 @@ Standalone Python script for forecasting **10 specific material groups** with sp
 
 ```mermaid
 flowchart TD
-    Start([▶️ Script Start]) --> Main[run_material_group_analysis]
+    Start([Script Start]) --> Main[run_material_group_analysis]
     Main --> LoadCSV[load_data from CSV]
     LoadCSV --> Validate{Validate Schema}
     Validate -->|"✓ Valid"| LoopGroups{"For Each Group\n(M-C, M-G, M-R, M-S\nP-C, P-F, P-G, P-R\nP-S, R-T)"}
-    Validate -->|"✗ Invalid"| Error([❌ Schema Error])
+    Validate -->|"✗ Invalid"| Error([Schema Error])
     
-    subgraph GroupProcessing["🔄 Process Single Material Group"]
+    subgraph GroupProcessing["Process Single Material Group"]
         direction TB
         FilterGroup[Filter by MATERIAL_GROUP_T]-->MakeDir[make_output_dir]
         MakeDir-->ProcessGroup[process_material_group]
         
-        subgraph DataPrep["📊 Data Preparation"]
+        subgraph DataPrep["Data Preparation"]
             AggDaily[aggregate_daily_for_target]-->DetectDensity[detect_density_patterns]
             DetectDensity-->DetectAnom[detect_anomalies_iqr]
         end
         
-        subgraph Modeling["🤖 Prophet Modeling"]
+        subgraph Modeling["Prophet Modeling"]
             BuildModel[build_prophet_model]-->GenFuture[generate_future_and_predict]
         end
         
-        subgraph PostProcessing["⚙️ Post-Processing"]
+        subgraph PostProcessing["Post-Processing"]
             direction TB
             ScaleHist[scale_forecast_to_hist]-->ApplyDensity[apply_density_pattern]
             ApplyDensity-->MonthEnd[apply_month_end_boost]
         end
         
-        subgraph SpecialLogic["🎯 Group-Specific Logic"]
+        subgraph SpecialLogic["Group-Specific Logic"]
             direction LR
             MarchCheck{"March Spike\nGroup?"}
             MarchCheck-->|"M-R, M-S\nP-C, P-S, R-T"| MarchBoost[apply_march_spike_boost]
@@ -384,7 +384,7 @@ flowchart TD
         InjectAnom-->EnforceCap[enforce_historical_cap]
     end
     
-    subgraph Output["💾 Save Results"]
+    subgraph Output["Save Results"]
         direction LR
         SaveCSV["Save CSV"]-->PlotBoth[plot_daily_and_monthly]
         PlotBoth-->SavePlots["Save PNGs"]
@@ -394,7 +394,7 @@ flowchart TD
     EnforceCap-->Output
     Output-->Continue{More Groups?}
     Continue-->|"Yes"| LoopGroups
-    Continue-->|"No"| Success([✅ All Groups Complete])
+    Continue-->|"No"| Success([All Groups Complete])
     
     style Start fill:#e1f5ff
     style Success fill:#c8e6c9
@@ -456,38 +456,38 @@ Validates forecasts with combinations of:
 
 ```mermaid
 flowchart TD
-    Start([▶️ Validation Suite Start]) --> MainRun[run_validation_suite]
+    Start([Validation Suite Start]) --> MainRun[run_validation_suite]
     MainRun --> LoadCSV[load_data from CSV]
     LoadCSV --> DefineTests["Define Test Cases\n(Material Groups, States,\nPlants, Customers)"]
     DefineTests --> TestLoop{"For Each\nTest Case"}
     
-    subgraph TestCase["🧪 Single Test Case Execution"]
+    subgraph TestCase["Single Test Case Execution"]
         direction TB
         RunTest[run_test_case]-->ApplyFilters[Apply filter combination]
         ApplyFilters-->MakeFolder[make_output_dir]
         MakeFolder-->CheckData{"Data Volume\nCheck"}
         
-        CheckData-->|"< 10 points"| SkipTest[⚠️ Skip - Insufficient Data]
+        CheckData-->|"< 10 points"| SkipTest[Skip - Insufficient Data]
         CheckData-->|"≥ 10 points"| TargetLoop{"For Each\nTarget Column"}
         
-        subgraph DataAnalysis["📊 Data Analysis"]
+        subgraph DataAnalysis["Data Analysis"]
             AggDaily[aggregate_daily_for_target]-->DetectDensity[detect_density_patterns]
             DetectDensity-->DetectAnom[detect_anomalies_iqr]
             DetectAnom-->SummarizeAnom[summarize_anomalies_by_window]
         end
         
-        subgraph Modeling["🤖 Prophet Model"]
+        subgraph Modeling["Prophet Model"]
             BuildModel[build_prophet_model]-->GenFuture[generate_future_and_predict]
         end
         
-        subgraph PostProcess["⚙️ Post-Processing Pipeline"]
+        subgraph PostProcess["Post-Processing Pipeline"]
             direction LR
             Scale[scale_forecast_to_hist]-->Density[apply_density_pattern]
             Density-->InjectAnom[inject_anomalies]
             InjectAnom-->Cap[enforce_historical_cap]
         end
         
-        subgraph Validation["📈 Accuracy & Output"]
+        subgraph Validation["Accuracy & Output"]
             direction TB
             CalcAccuracy["calculate_accuracy_metrics\n(MAE, RMSE, MAPE, R²)"]-->SaveCSV[Save forecast CSV]
             SaveCSV-->SaveModel["Save Prophet model (PKL)"]
@@ -508,8 +508,8 @@ flowchart TD
     SkipTest-->TestComplete
     TestComplete-->NextTest{"More\nTest Cases?"}
     NextTest-->|"Yes"| TestLoop
-    NextTest-->|"No"| Summary["📊 Print Validation Summary\n(All Metrics Report)"]
-    Summary-->Success([✅ Suite Complete])
+    NextTest-->|"No"| Summary["Print Validation Summary\n(All Metrics Report)"]
+    Summary-->Success([Suite Complete])
     
     style Start fill:#e1f5ff
     style Success fill:#c8e6c9
@@ -686,10 +686,4 @@ Per test case folder contains:
 
 ---
 
-## License & Credits
-
-**Developed for**: Supreme Sales Forecasting System  
-**Framework**: Facebook Prophet, Streamlit, Snowflake Cortex  
-**Version**: 2.0  
-**Last Updated**: February 2026
 
